@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Helper;
 use App\Models\Slip;
 use Illuminate\Http\Request;
-use Spatie\LaravelPdf\Facades\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class PrintSlipController extends Controller
 {
@@ -14,9 +15,15 @@ class PrintSlipController extends Controller
         $slip_id = $request->slip_id;
         $slip = Slip::findOrFail($slip_id);
 
-        Helper::sendWhatsapp($slip->karyawan->phone,$this->messageTemplate($slip));
         $filename = 'SLIP-GAJI_'.str_replace(' ','_',$slip->karyawan->name).'.pdf';
-         return Pdf::view('slipgaji' , ['data' => $slip,'multi' => false])->name($filename)->format('a5');
+        //  return Pdf::view('slipgaji' , ['data' => $slip,'multi' => false])->name($filename)->format('a5');
+
+
+         $pdf = Pdf::loadView('slipgaji', ['data' => $slip,'multi' =>false]);
+         $pdf->save(storage_path('app/public/'.$filename));
+        Helper::sendWhatsapp($slip->karyawan->phone,$this->messageTemplate($slip) , storage_path('app/public/'.$filename));
+       
+         return $pdf->download($filename);
     }
 
     public function messageTemplate($data)

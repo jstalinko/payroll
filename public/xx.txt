@@ -1,0 +1,1 @@
+{"status":200,"message":"WhatsApp chat has been queued for sending!","data":false}
