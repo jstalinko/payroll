@@ -1,0 +1,23 @@
+{
+    "site_url": "localhost:8000",
+    "site_name": "GTMOTOMINDS",
+    "site_description": "PAYROLL",
+    "icon": "01JBGPCZ3HXDP7V4GA4BBPB975.png",
+    "logo": "01JBGPCZ3J22SKY8NN95CW40N3.png",
+    "sosmed": {
+        "facebook_url": "https:\/\/facebook.com",
+        "instagram_url": "#",
+        "titktok_url": "#",
+        "whatsapp_url": "#"
+    },
+    "meta_setting": [
+        {
+            "name": "author",
+            "content": "justorange"
+        },
+        {
+            "name": "description",
+            "content": "justorange"
+        }
+    ]
+}
