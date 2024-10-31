@@ -127,6 +127,16 @@ class SlipResource extends Resource
                 Tables\Columns\TextColumn::make('in_gaji_pokok')
                     ->money('IDR',locale:'id')
                     ->sortable(), 
+                Tables\Columns\TextColumn::make('gaji_bersih')
+                ->label('Gaji Bersih') // Add a clear label
+                ->getStateUsing(function ($record) {
+                    return "Rp ".number_format(
+                        ($record->in_gaji_pokok + $record->in_upah_lembur + $record->in_uang_makan + $record->in_uang_transport + $record->in_lain) - 
+                        ($record->out_telat + $record->out_kerusakan_barang + $record->out_kasbon + $record->out_lain), 
+                        0, ',', '.'
+                    );
+                })
+                ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
