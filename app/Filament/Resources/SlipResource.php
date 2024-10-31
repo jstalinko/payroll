@@ -152,6 +152,7 @@ class SlipResource extends Resource
                             if(!is_dir(storage_path('app/public/export-gaji'))){
                             mkdir(storage_path('app/public/export-gaji'),0777, true);
                             }
+                            
                             $filename = 'SLIP-GAJI_'.date('d_m_Y').'.pdf';
                              Pdf::view('slipgaji' , ['records' => $records , 'multi' => true])->name($filename)->format('a5')->save(storage_path('app/public/export-gaji/'.$filename));
                              Notification::make('success')->title('SUCCESS EXPORT SLIP GAJI')->body('Data slip gaji semua karyawan berhasil di export')->success()->send();
