@@ -96,7 +96,7 @@ class SlipResource extends Resource
                     ->prefix('Rp')
                     ->label('Kasbon')
                     ->default(0),
-                    Forms\Components\TextInput::make('out_transport')
+                    Forms\Components\TextInput::make('out_uang_transport')
                     ->required()
                     ->numeric()
                     ->prefix('Rp')
@@ -138,7 +138,7 @@ class SlipResource extends Resource
                 ->getStateUsing(function ($record) {
                     return "Rp ".number_format(
                         ($record->in_gaji_pokok + $record->in_upah_lembur + $record->in_uang_makan + $record->in_uang_transport + $record->in_lain) - 
-                        ($record->out_telat + $record->out_kerusakan_barang + $record->out_kasbon + $record->out_lain), 
+                        ($record->out_telat + $record->out_kerusakan_barang + $record->out_kasbon + $record->out_lain + $record->out_uang_transport), 
                         0, ',', '.'
                     );
                 })

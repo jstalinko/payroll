@@ -131,6 +131,10 @@
               <td>Rp. {{ number_format($data->out_kerusakan_barang, 0, ',', '.') }}</td> 
             </tr>
             <tr>
+              <td>Potongan Transport</td>
+              <td>Rp. {{ number_format($data->out_uang_transport, 0, ',', '.') }}</td> 
+            </tr>
+            <tr>
               <td>Kasbon</td>
               <td>Rp. {{ number_format($data->out_kasbon, 0, ',', '.') }}</td> 
             </tr>
@@ -140,14 +144,14 @@
             </tr>
             <tr>
               <td style="font-weight: bold;">Total Potongan</td>
-              <td>Rp. {{ number_format($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain, 0, ',', '.') }}</td> 
+              <td>Rp. {{ number_format($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain+$data->out_uang_transport, 0, ',', '.') }}</td> 
             </tr>
           </tbody>
         </table>
       </div>
   
       <div class="gaji-bersih">
-        <h3>Gaji Bersih: Rp. {{ number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain), 0, ',', '.') }}</h3> 
+      <h3>Gaji Bersih: Rp. {{ number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain + $data->out_uang_transport), 0, ',', '.') }}</h3> 
       </div>
         
         <b>
@@ -239,6 +243,10 @@
             <td>Rp. {{ number_format($data->out_kasbon, 0, ',', '.') }}</td> 
           </tr>
           <tr>
+            <td>Potongan Transport</td>
+            <td>Rp. {{ number_format($data->out_uang_transport, 0, ',', '.') }}</td> 
+          </tr>
+          <tr>
             <td>Lain-lain ({{$data->out_keterangan}})</td>
             <td>Rp. {{ number_format($data->out_lain, 0, ',', '.') }}</td> 
           </tr>
@@ -251,7 +259,7 @@
     </div>
 
     <div class="gaji-bersih">
-      <h3>Gaji Bersih: Rp. {{ number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain), 0, ',', '.') }}</h3> 
+      <h3>Gaji Bersih: Rp. {{ number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain + $data->out_uang_transport), 0, ',', '.') }}</h3> 
        
       <b>
         GAJI SUDAH DI TRANSFER KE *({{$data->karyawan->bank_name}}) {{$data->karyawan->account_number}} a/n {{$data->karyawan->account_name}}*

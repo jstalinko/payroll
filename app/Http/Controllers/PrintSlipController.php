@@ -49,10 +49,11 @@ class PrintSlipController extends Controller
         $t .= "*KERUSAKAN BARANG* : " . number_format($data->out_kerusakan_barang, 0, ',', '.') . "\n";
         $t .= "*KASBON* : " . number_format($data->out_kasbon, 0, ',', '.') . "\n";
         $t .= "*LAIN-LAIN (" . $data->out_keterangan . ")* : " . number_format($data->out_lain, 0, ',', '.') . "\n";
+        $t .= "*TRANSPORT* :  ".number_format($data->out_uang_transport,0,',','.')."\n";
         $t .= "------------------------------------\n";
-        $t .= "*TOTAL POTONGAN* : " . number_format($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain, 0, ',', '.') . "\n\n";
+        $t .= "*TOTAL POTONGAN* : " . number_format($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain+$data->out_uang_transport, 0, ',', '.') . "\n\n";
     
-        $t .= "*GAJI BERSIH* : " . number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain), 0, ',', '.') . "\n";
+        $t .= "*GAJI BERSIH* : " . number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain + $data->out_uang_transport), 0, ',', '.') . "\n";
         $t.="\n\n\n";
         $t.= "GAJI SUDAH DI TRANSFER KE *(".$data->karyawan->bank_name.") ".$data->karyawan->account_number." a/n ".$data->karyawan->account_name."*";
     
