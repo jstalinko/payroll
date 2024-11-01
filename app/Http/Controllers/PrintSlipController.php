@@ -15,7 +15,7 @@ class PrintSlipController extends Controller
         $slip_id = $request->slip_id;
         $slip = Slip::findOrFail($slip_id);
 
-        $filename = 'SLIP-GAJI_'.str_replace(' ','_',$slip->karyawan->name).'.pdf';
+        $filename = 'SLIP-GAJI_'.str_replace(' ','_',$slip->karyawan->name).'['.date('dmY').'].pdf';
         //  return Pdf::view('slipgaji' , ['data' => $slip,'multi' => false])->name($filename)->format('a5');
 
 
