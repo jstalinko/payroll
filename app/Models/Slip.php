@@ -29,6 +29,8 @@ class Slip extends Model
         'out_kasbon',
         'out_lain',
         'out_keterangan', 
+        'out_uang_transport',
+
     ];
 
     /**

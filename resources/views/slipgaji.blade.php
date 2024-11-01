@@ -149,6 +149,11 @@
       <div class="gaji-bersih">
         <h3>Gaji Bersih: Rp. {{ number_format(($data->in_gaji_pokok + $data->in_upah_lembur + $data->in_uang_makan + $data->in_uang_transport + $data->in_lain) - ($data->out_telat + $data->out_kerusakan_barang + $data->out_kasbon + $data->out_lain), 0, ',', '.') }}</h3> 
       </div>
+        
+        <b>
+        GAJI SUDAH DI TRANSFER KE *({{$data->karyawan->bank_name}}) {{$data->karyawan->account_number}} a/n {{$data->karyawan->account_name}}*
+
+        </b>
     </div>
     @pageBreak
 

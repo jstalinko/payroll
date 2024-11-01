@@ -36,6 +36,11 @@ class KaryawanResource extends Resource
                     ->required()
                     ->numeric()
                     ->default(1000000),
+            Forms\Components\Select::make('payment_method')->options(['ewallet' => 'E-WALLET','bank' => 'BANK TRANSFER'])->label('Metode Bayar'),
+            Forms\Components\TextInput::make('bank_name')->label('Nama Bank / Jenis Ewallet'),
+            Forms\Components\TextInput::make('account_name')->label('Atas Nama'),
+            Forms\Components\TextInput::make('account_number')->label('No. Rekening / No. HP')
+
             ]);
     }
 

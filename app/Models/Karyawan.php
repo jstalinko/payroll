@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Karyawan extends Model
 {
     use HasFactory;
-
+   
     protected $fillable = [
         'name',
         'position',
         'phone',
         'address',
-        'salary'
+        'salary',
+        'payment_method',
+        'account_name',
+        'bank_name',
+        'account_number'
     ];
 }

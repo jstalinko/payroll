@@ -96,6 +96,12 @@ class SlipResource extends Resource
                     ->prefix('Rp')
                     ->label('Kasbon')
                     ->default(0),
+                    Forms\Components\TextInput::make('out_transport')
+                    ->required()
+                    ->numeric()
+                    ->prefix('Rp')
+                    ->label('Transport')
+                    ->default(0),
                 Forms\Components\TextInput::make('out_lain')
                     ->required()
                     ->numeric()
@@ -137,6 +143,9 @@ class SlipResource extends Resource
                     );
                 })
                 ->sortable(),
+                Tables\Columns\TextColumn::make('Bayar')->getStateUsing(function ($record) {
+                    return '('.$record->karyawan->bank_name.') '.$record->karyawan->account_number.' a/n '.$record->karyawan->account_name;
+                }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
