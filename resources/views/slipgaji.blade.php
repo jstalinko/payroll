@@ -8,7 +8,7 @@
       position: relative; /* Add this to position the watermark */
     }
     .container {
-      width: 800px;
+      width: 600px;
       margin: 0 auto;
       border: 1px solid #ccc;
       padding: 20px;
@@ -171,14 +171,14 @@
     @else
     <div class="watermark">
       
-      <img src="{{'data:image/png;base64,' . base64_encode(file_get_contents(storage_path('app/public/'.config('app.setting.logo'))))}}" style="width:300px;height:300px"/>
+      <img src="{{storage_path('app/public/'.config('app.setting.logo'))}}" style="width:300px;height:300px"/>
       
     </div>
     
 
     <div class="header">
       <table ><tr><td style="max-width:150px;max-height:150px">
-      <img src="{{'data:image/png;base64,' . base64_encode(file_get_contents(storage_path('app/public/'.config('app.setting.logo'))))}}" style="width:100px;height:100px"/>
+      <img src="{{storage_path('app/public/'.config('app.setting.logo'))}}" style="width:100px;height:100px"/>
       </td><td style="width:100%;height:auto;">
       <center>
         <h2>{{ config('app.setting.site_name') }}</h2>
