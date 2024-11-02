@@ -171,14 +171,14 @@
     @else
     <div class="watermark">
       
-      <img src="{{storage_path('app/public/'.config('app.setting.logo'))}}" style="width:300px;height:300px"/>
+      <img src="{{public_path('storage/'.config('app.setting.logo'))}}" style="width:300px;height:300px"/>
       
     </div>
     
 
     <div class="header">
       <table ><tr><td style="max-width:150px;max-height:150px">
-      <img src="{{storage_path('app/public/'.config('app.setting.logo'))}}" style="width:100px;height:100px"/>
+      <img src="{{public_path('storage/'.config('app.setting.logo'))}}" style="width:100px;height:100px"/>
       </td><td style="width:100%;height:auto;">
       <center>
         <h2>{{ config('app.setting.site_name') }}</h2>

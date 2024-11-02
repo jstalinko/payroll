@@ -20,10 +20,13 @@ class PrintSlipController extends Controller
 
 
          $pdf = Pdf::loadView('slipgaji', ['data' => $slip,'multi' =>false]);
-         $pdf->save(storage_path('app/public/'.$filename));
-        Helper::sendWhatsapp($slip->karyawan->phone,$this->messageTemplate($slip) , storage_path('app/public/'.$filename));
        
-         return $pdf->download($filename);
+       //  return $pdf->download($filename);
+
+         $pdf->save(storage_path('app/public/'.$filename));
+         sleep(1);
+         return Helper::sendWhatsapp($slip->karyawan->phone,$this->messageTemplate($slip) , storage_path('app/public/'.$filename));
+        
     }
 
     public function messageTemplate($data)
