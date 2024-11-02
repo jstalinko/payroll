@@ -20,10 +20,10 @@ use App\Http\Controllers\JustOrangeController;
 Route::get('/', [JustOrangeController::class, 'index']);
 Route::get('/view', function (Request $request) {
    if ($request->view) {
-      return view('slipgaji',['data' => \App\Models\Slip::find(1)]);
+      return view('slipgaji',['data' => \App\Models\Slip::find(1) , 'multi' => false]);
    } else {
       return Pdf::view('slipgaji')->format('a4')
-         ->save('invoice.pdf',['data'=> \App\Models\Slip::find(1)]);
+         ->save('invoice.pdf',['data'=> \App\Models\Slip::find(1) , 'multi' => false]);
    }
 });
 

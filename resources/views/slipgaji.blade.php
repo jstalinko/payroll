@@ -4,7 +4,7 @@
   <title>Slip Gaji Karyawan</title>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: roboto;
       position: relative; /* Add this to position the watermark */
     }
     .container {
@@ -17,14 +17,14 @@
     .header {
       text-align: center;
       margin-bottom: 20px;
-      border-bottom: 2px solid #000;
+      border-bottom: 4px solid #DBA82E
     }
     .header img {
       max-width: 200px; 
       margin-bottom: 10px; 
     }
     .info-karyawan {
-      margin-bottom: 20px;
+      margin-bottom: 4px;
     }
     .table {
       width: 100%;
@@ -32,17 +32,22 @@
     }
     .table th, .table td {
       border: 1px solid #ccc;
-      padding: 8px;
+      padding: 3px;
       text-align: left;
+    }
+    .table thead tr{
+      background: #1F9DD9;
     }
     .watermark {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%) rotate(-45deg); /* Center and rotate */
-      font-size: 50px;
+      transform: translate(-50%, -50%); 
+      opacity: 0.3;
+      font-size: 40px;
       color: rgba(0, 0, 0, 0.1); /* Light gray color */
       z-index: -1; /* Place behind other content */
+
     }
   </style>
 </head>
@@ -55,12 +60,13 @@
     @foreach($records as $data)
     <div class="watermark">
       @for($i=0;$i<=3;$i++)
-      {{ config('app.setting.site_name') }}
+      {{ config('app.setting.site_name') }}<br>
       @endfor
     </div>
     
 
     <div class="header">
+      <img src="{{url('storage/'.config('app.setting.icon'))}}" />
       <h2>{{ config('app.setting.site_name') }}</h2>
     </div>
     <div>
@@ -164,14 +170,24 @@
     @endforeach
     @else
     <div class="watermark">
-      @for($i=0;$i<=3;$i++)
-      {{ config('app.setting.site_name') }}
-      @endfor
+      
+      <img src="{{url('storage/'.config('app.setting.logo'))}}" style="width:300px;height:300px"/>
+      
     </div>
     
 
     <div class="header">
-      <h2>{{ config('app.setting.site_name') }}</h2>
+      <table ><tr><td style="max-width:150px;max-height:150px">
+      <img src="{{url('storage/'.config('app.setting.logo'))}}" style="width:100px;height:100px"/>
+      </td><td style="width:100%;height:auto;">
+      <center>
+        <h2>{{ config('app.setting.site_name') }}</h2>
+        <p>{{config('app.setting.site_description')}}</p>
+
+      </center>
+      </td>
+      </tr>
+      </table>
     </div>
     <div class="info-karyawan">
       <h3>Slip Gaji Karyawan</h3>
