@@ -2,19 +2,16 @@
 
 namespace App\Filament\Resources;
 
+use App\Helper;
 use Filament\Forms;
 use App\Models\Slip;
 use Filament\Tables;
 use App\Models\Karyawan;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Resources\Resource;
-use Spatie\LaravelPdf\Facades\Pdf;
-use Filament\Notifications\Notification;
-use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\SlipResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\SlipResource\RelationManagers;
 
 class SlipResource extends Resource
 {
@@ -168,15 +165,38 @@ class SlipResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                     Tables\Actions\BulkAction::make('Print Selected')->icon('heroicon-s-printer')->color('success')->action(function($records){
                         
-                            if(!is_dir(storage_path('app/public/export-gaji'))){
-                            mkdir(storage_path('app/public/export-gaji'),0777, true);
-                            }
-                            
-                            $filename = 'SLIP-GAJI_'.date('d_m_Y').'.pdf';
-                             Pdf::view('slipgaji' , ['records' => $records , 'multi' => true])->name($filename)->format('a5')->save(storage_path('app/public/export-gaji/'.$filename));
-                             Notification::make('success')->title('SUCCESS EXPORT SLIP GAJI')->body('Data slip gaji semua karyawan berhasil di export')->success()->send();
+                        $DIR = storage_path('app/public/exported_'.date('dmYHi'));
+                        if(!is_dir($DIR))
+                        {
+                            mkdir($DIR,0777, true);
+                        }
+                        $files = [];
+                        foreach($records as $idx=>$record)
+                        {
+                            $slip_id = $record->id;
+                            $slip = Slip::find($slip_id);
+                            $filename = 'SLIP-GAJI_'.str_replace(' ','_',$slip->karyawan->name).'x'.date('dmYHi').'.pdf';
+                            $pdf = Pdf::loadView('slipgaji',['data' => $slip,'multi' => false]);
+                            $pdf->save($DIR.'/'.$filename);
+                            usleep(500);
+                            Helper::sendWhatsapp($slip->karyawan->phone,Helper::messageTemplate($slip) , $DIR.'/'.$filename);
 
-                             return redirect(url('storage/export-gaji/'.$filename));
+                            $files[$idx] = $DIR.'/'.$filename;
+                        }
+
+                        $zip = new \ZipArchive();
+                        if($zip->open($DIR.'/'.basename($DIR).'.zip' , \ZipArchive::CREATE) === TRUE)
+                        {
+                            foreach($files as $file)
+                            {
+                                $zip->addFile($file, basename($file));
+                            }
+                            $zip->close();
+
+                        }
+
+                        return response()->download($DIR.'/'.basename($DIR).'.zip');
+
                     })
                 ]),
             ]);
