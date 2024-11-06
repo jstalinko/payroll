@@ -179,7 +179,7 @@ class SlipResource extends Resource
                             $pdf = Pdf::loadView('slipgaji',['data' => $slip,'multi' => false]);
                             $pdf->save($DIR.'/'.$filename);
                             usleep(500);
-                            Helper::sendWhatsapp($slip->karyawan->phone,Helper::messageTemplate($slip) , $DIR.'/'.$filename);
+                            Helper::sendWhatsapp($slip->karyawan->phone,Helper::messageTemplate($slip) , $DIR.'/'.$filename , 'exported_'.date('dmYHi'));
 
                             $files[$idx] = $DIR.'/'.$filename;
                         }

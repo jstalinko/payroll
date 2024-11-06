@@ -8,10 +8,16 @@ class Helper
 {
     protected static $PIWAPI_SECRETKEY = "173036684301386bd6d8e091c2ab4c7c7de644d37b67234d7bc360d";
     protected static  $PIWAPI_APIKEY = "4eb8af9236916dbe778bf5333b5ebd2f2d6afeb2";
-    public static function sendWhatsapp($to_number, $message,$file)
+    public static function sendWhatsapp($to_number, $message,$file , $custom_path = null)
     {
         $number = preg_replace("/^08/","628",$to_number);
         $number = str_replace([' ','-'],"",$number);
+        if($custom_path != null)
+        {
+            $doc_url = url('storage/'.$custom_path.'/'.basename($file));
+        }else{
+            $doc_url = url('storage/'.basename($file));
+        }
 
         $chat = [
             "secret" => self::$PIWAPI_APIKEY, // your API secret from (Tools -> API Keys) page
@@ -20,7 +26,7 @@ class Helper
             "type" => "document",
             "message" => $message,
             "document_type"=>"pdf",
-            "document_url"=> url('storage/'.basename($file)),
+            "document_url"=> $doc_url,
             "document_name" => basename($file)
         ];
 
